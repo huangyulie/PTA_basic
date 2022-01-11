@@ -4,37 +4,37 @@
 using namespace std;
 
 struct NODE{
-	double a;
-	double b;
-	double c;
-}arr[1001]; 
+	int a;
+	int b;
+}node[99999];
 
-double cmp(NODE x,NODE y){
-	return x.c>y.c;
+int cmp(NODE aa,NODE bb){
+	return aa.b<bb.b;
 }
 
 int main(){
-	int num,max;scanf("%d %d",&num,&max);int i,sum=0;double result=0;
-	for(i=0;i<num;++i){
-		scanf("%lf",&arr[i].a);
-	}
-	for(i=0;i<num;++i){
-		scanf("%lf",&arr[i].b);
-	}
-	for(i=0;i<num;++i){
-		arr[i].c = arr[i].b/arr[i].a;
-	}
-	sort(arr,arr+num,cmp);
-	for(i=0;i<num;++i){
-		if(max!=0){
-			if(max-arr[i].a>=0){
-				result+=arr[i].b;
-				max=max-arr[i].a;
+	int n;
+	while(scanf("%d",&n)!=EOF){
+		int i,sum,value,max;
+		for(i=0;i<n;++i){
+			scanf("%d %d",&node[i].a,&node[i].b);
+		}
+		sort(node,node+n,cmp);
+		sum = 0;
+		max = node[0].a;
+		value = node[0].b;
+		for(i=1;i<n;++i){
+			if(value == node[i].b){
+				if(node[i].a>max){
+					max = node[i].a;
+				}
 			}else{
-				result+=(arr[i].c*(max));
-				max=0;
+				sum+=max;
 			}
 		}
+		printf("%d\n",sum);
+		for(i=0;i<n;++i){
+			printf("%d %d ",node[i].a,node[i].b);
+		}
 	}
-	printf("%.2lf",result);
 } 
